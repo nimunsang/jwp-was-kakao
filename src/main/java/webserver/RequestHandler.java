@@ -1,5 +1,7 @@
 package webserver;
 
+import db.DataBase;
+import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.*;
@@ -30,6 +32,7 @@ public class RequestHandler implements Runnable {
 
             HttpMethod httpMethod = requestHeader.getHttpMethod();
             String url = requestHeader.getUrl();
+            String endPoint = HttpHeaderUtils.parseEndPoint(line);
 
             while (line != null && !line.equals("")) {
                 logger.debug("header : {}", line);
@@ -38,6 +41,18 @@ public class RequestHandler implements Runnable {
 
             if (httpMethod.equals(HttpMethod.GET)) {
                 DataOutputStream dos = new DataOutputStream(out);
+
+                if (endPoint.equals("/user/create")) {
+                    QueryParams queryParams = QueryParams.of(url);
+                    User user = QueryParamMapper.toUser(queryParams);
+
+                    DataBase.addUser(user);
+
+                    byte[] body = "성공했습니다.".getBytes();
+                    response200Header(dos, body.length);
+                    responseBody(dos, body);
+                    return;
+                }
 
                 String templateUrl = TemplateUrlBuilder.build(url);
                 ContentType contentType = ContentTypeParser.parse(templateUrl);
@@ -59,6 +74,17 @@ public class RequestHandler implements Runnable {
         try {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");
             dos.writeBytes("Content-Type: " + contentType + ";charset=utf-8\r\n");
+            dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
+            dos.writeBytes("\r\n");
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
+        try {
+            dos.writeBytes("HTTP/1.1 200 OK \r\n");
+            dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");
         } catch (IOException e) {

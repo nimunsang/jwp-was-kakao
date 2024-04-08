@@ -17,4 +17,9 @@ public class HttpHeaderUtils {
         String[] s = header.split(" ");
         return s[1];
     }
+
+    public static String parseEndPoint(String header) {
+        String url = parseUrl(header);
+        return url.split("\\?")[0];
+    }
 }

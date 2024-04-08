@@ -14,6 +14,6 @@
   - [X] URL에 해당하는 파일을 읽기
   - [X] 파일 내용을 클라이언트에게 응답하기
 - [X] CSS 지원하기
-- [ ] Query String 파싱
+- [X] Query String 파싱
 - [ ] POST 방식으로 회원가입
 - [ ] Redirect

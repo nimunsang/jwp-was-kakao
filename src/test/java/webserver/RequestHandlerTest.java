@@ -1,12 +1,12 @@
 package webserver;
 
+import model.User;
 import org.junit.jupiter.api.Test;
-import utils.FileIoUtils;
-import utils.HttpHeaderUtils;
-import utils.HttpMethod;
+import utils.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,5 +40,39 @@ class RequestHandlerTest {
 
         assertThat(filePath).isEqualTo("./templates/index.html");
         assertThat(bytes).isNotEmpty();
+    }
+
+    @Test
+    void QUERY_STRING_파싱() {
+        String header = "GET /user/create?userId=cu&password=password&name=%EC%9D%B4%EB%8F%99%EA%B7%9C&email=brainbackdoor%40gmail.com HTTP/1.1\n";
+
+        String url = HttpHeaderUtils.parseUrl(header);
+
+        Map<String, String> data = QueryStringParser.parse(url);
+
+        QueryParams queryParams = new QueryParams(data);
+
+        assertThat(queryParams.get("userId")).isEqualTo("cu");
+        assertThat(queryParams.get("password")).isEqualTo("password");
+        assertThat(queryParams.get("name")).isEqualTo("%EC%9D%B4%EB%8F%99%EA%B7%9C");
+        assertThat(queryParams.get("email")).isEqualTo("brainbackdoor%40gmail.com");
+    }
+
+
+    @Test
+    void QUERY_PARAM_MAPPER_테스트() {
+        String header = "GET /user/create?userId=cu&password=password&name=%EC%9D%B4%EB%8F%99%EA%B7%9C&email=brainbackdoor%40gmail.com HTTP/1.1\n";
+
+        String url = HttpHeaderUtils.parseUrl(header);
+        Map<String, String> data = QueryStringParser.parse(url);
+
+        QueryParams queryParams = new QueryParams(data);
+
+        User user = QueryParamMapper.toUser(queryParams);
+
+        assertThat(user.getUserId()).isEqualTo("cu");
+        assertThat(user.getPassword()).isEqualTo("password");
+        assertThat(user.getName()).isEqualTo("%EC%9D%B4%EB%8F%99%EA%B7%9C");
+        assertThat(user.getEmail()).isEqualTo("brainbackdoor%40gmail.com");
     }
 }
