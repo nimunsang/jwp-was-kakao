@@ -8,4 +8,12 @@ public class RequestHeader {
         this.httpMethod = httpMethod;
         this.url = url;
     }
+
+    public HttpMethod getHttpMethod() {
+        return httpMethod;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

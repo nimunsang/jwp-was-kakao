@@ -2,7 +2,7 @@ package webserver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.FileIoUtils;
+import utils.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -26,19 +26,27 @@ public class RequestHandler implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
             String line = bufferedReader.readLine();
 
+            RequestHeader requestHeader = HttpHeaderUtils.parse(line);
+
+            HttpMethod httpMethod = requestHeader.getHttpMethod();
+            String url = requestHeader.getUrl();
 
             while (line != null && !line.equals("")) {
                 logger.debug("header : {}", line);
                 line = bufferedReader.readLine();
             }
 
-            DataOutputStream dos = new DataOutputStream(out);
-            FileIoUtils.loadFileFromClasspath("./templates/index.html");
+            if (httpMethod.equals(HttpMethod.GET)) {
+                DataOutputStream dos = new DataOutputStream(out);
 
-            byte[] body = "Hello World".getBytes();
+                String templateUrl = TemplateUrlBuilder.build(url);
 
-            response200Header(dos, body.length);
-            responseBody(dos, body);
+                byte[] body = FileIoUtils.loadFileFromClasspath(templateUrl);
+
+                response200Header(dos, body.length);
+                responseBody(dos, body);
+            }
+
         } catch (IOException e) {
             logger.error(e.getMessage());
         } catch (URISyntaxException e) {
