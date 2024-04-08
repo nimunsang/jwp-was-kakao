@@ -5,4 +5,9 @@ public class HttpHeaderUtils {
         String[] s = header.split(" ");
         return HeaderType.of(s[0]);
     }
+
+    public static String parseUrl(String header){
+        String[] s = header.split(" ");
+        return s[1];
+    }
 }
