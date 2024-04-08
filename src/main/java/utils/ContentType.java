@@ -7,7 +7,7 @@ public enum ContentType {
     TEXT_CSS("text/css"),
     TEXT_HTML("text/html");
 
-    private String value;
+    private final String value;
 
     ContentType(String value) {
         this.value = value;
@@ -16,8 +16,8 @@ public enum ContentType {
     public static ContentType of(String contentTypeString) {
         return Arrays.stream(values())
                 .filter(contentType -> Objects.equals(contentType.value, contentTypeString))
-                .findFirst()
-                .get();
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("지원하지 않는 Content-Type 입니다"));
     }
 
     public String getValue() {
