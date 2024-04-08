@@ -40,10 +40,11 @@ public class RequestHandler implements Runnable {
                 DataOutputStream dos = new DataOutputStream(out);
 
                 String templateUrl = TemplateUrlBuilder.build(url);
+                ContentType contentType = ContentTypeParser.parse(templateUrl);
 
                 byte[] body = FileIoUtils.loadFileFromClasspath(templateUrl);
 
-                response200Header(dos, body.length);
+                response200Header(dos, body.length, contentType.getValue());
                 responseBody(dos, body);
             }
 
@@ -54,10 +55,10 @@ public class RequestHandler implements Runnable {
         }
     }
 
-    private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
+    private void response200Header(DataOutputStream dos, int lengthOfBodyContent, String contentType) {
         try {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");
-            dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
+            dos.writeBytes("Content-Type: " + contentType + ";charset=utf-8\r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");
         } catch (IOException e) {
