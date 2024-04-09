@@ -1,11 +1,10 @@
 package utils;
 
-public class RequestHeader {
+public class RequestStartLine {
     private HttpMethod httpMethod;
     private String url;
-    private ContentType contentType;
 
-    public RequestHeader(HttpMethod httpMethod, String url) {
+    public RequestStartLine(HttpMethod httpMethod, String url) {
         this.httpMethod = httpMethod;
         this.url = url;
     }
@@ -16,5 +15,9 @@ public class RequestHeader {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getEndPoint() {
+        return url.split("\\?")[0];
     }
 }

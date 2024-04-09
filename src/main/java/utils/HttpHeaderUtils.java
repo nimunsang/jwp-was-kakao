@@ -1,11 +1,11 @@
 package utils;
 
 public class HttpHeaderUtils {
-    public static RequestHeader parse(String header) {
+    public static RequestStartLine parse(String header) {
         HttpMethod httpMethod = parseHttpMethod(header);
         String url = parseUrl(header);
 
-        return new RequestHeader(httpMethod, url);
+        return new RequestStartLine(httpMethod, url);
     }
 
     public static HttpMethod parseHttpMethod(String header) {
@@ -16,10 +16,5 @@ public class HttpHeaderUtils {
     public static String parseUrl(String header) {
         String[] s = header.split(" ");
         return s[1];
-    }
-
-    public static String parseEndPoint(String header) {
-        String url = parseUrl(header);
-        return url.split("\\?")[0];
     }
 }
