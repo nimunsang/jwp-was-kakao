@@ -1,10 +1,11 @@
 package webserver;
 
+import http.HttpRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.HttpRequest;
+import http.HttpRequest;
 import utils.HttpRequestBuilder;
-import utils.HttpResponse;
+import http.HttpResponse;
 import utils.ResponseWriter;
 
 import java.io.*;

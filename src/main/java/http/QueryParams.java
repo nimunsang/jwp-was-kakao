@@ -1,4 +1,6 @@
-package utils;
+package http;
+
+import utils.QueryStringParser;
 
 import java.util.Map;
 

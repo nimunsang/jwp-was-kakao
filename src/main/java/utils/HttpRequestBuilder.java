@@ -1,5 +1,10 @@
 package utils;
 
+import http.Header;
+import http.HttpMethod;
+import http.HttpRequest;
+import http.RequestStartLine;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 

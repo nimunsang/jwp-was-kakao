@@ -1,5 +1,6 @@
 package utils;
 
+import http.QueryParams;
 import model.User;
 
 public class QueryParamMapper {

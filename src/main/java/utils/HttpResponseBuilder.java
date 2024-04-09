@@ -1,5 +1,7 @@
 package utils;
 
+import http.*;
+
 public class HttpResponseBuilder {
 
     private ResponseStartLine startLine;

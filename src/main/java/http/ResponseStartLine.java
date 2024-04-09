@@ -1,4 +1,7 @@
-package utils;
+package http;
+
+import http.HttpStatus;
+import http.HttpVersion;
 
 public class ResponseStartLine {
     private final HttpVersion httpVersion;

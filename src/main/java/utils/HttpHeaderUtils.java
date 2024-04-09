@@ -1,5 +1,8 @@
 package utils;
 
+import http.HttpMethod;
+import http.RequestStartLine;
+
 public class HttpHeaderUtils {
     public static RequestStartLine parse(String header) {
         HttpMethod httpMethod = parseHttpMethod(header);

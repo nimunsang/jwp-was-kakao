@@ -1,4 +1,4 @@
-package utils;
+package http;
 
 public class HttpResponse {
     private ResponseStartLine startLine;

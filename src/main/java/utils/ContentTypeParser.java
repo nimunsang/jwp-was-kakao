@@ -1,5 +1,7 @@
 package utils;
 
+import http.ContentType;
+
 import java.net.FileNameMap;
 import java.net.URLConnection;
 

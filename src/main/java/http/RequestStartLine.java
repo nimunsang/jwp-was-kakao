@@ -1,4 +1,6 @@
-package utils;
+package http;
+
+import http.HttpMethod;
 
 public class RequestStartLine {
     private HttpMethod httpMethod;

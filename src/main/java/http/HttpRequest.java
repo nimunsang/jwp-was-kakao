@@ -1,4 +1,4 @@
-package utils;
+package http;
 
 public class HttpRequest {
     private RequestStartLine requestStartLine;

@@ -1,5 +1,7 @@
 package webserver;
 
+import http.HttpMethod;
+import http.QueryParams;
 import model.User;
 import org.junit.jupiter.api.Test;
 import utils.*;
