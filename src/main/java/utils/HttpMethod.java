@@ -1,7 +1,7 @@
 package utils;
 
 public enum HttpMethod {
-    GET;
+    GET, POST;
 
     public static HttpMethod of(String type) {
         // TODO type validation

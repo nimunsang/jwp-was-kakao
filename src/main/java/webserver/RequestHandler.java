@@ -34,9 +34,16 @@ public class RequestHandler implements Runnable {
             String url = requestHeader.getUrl();
             String endPoint = HttpHeaderUtils.parseEndPoint(line);
 
-            while (line != null && !line.equals("")) {
+            HttpHeader httpHeader = new HttpHeader();
+            while (true) {
                 logger.debug("header : {}", line);
+
                 line = bufferedReader.readLine();
+                if (line == null || line.isEmpty()) {
+                    break;
+                }
+                String[] split = line.split(": ");
+                httpHeader.put(split[0], split[1]);
             }
 
             if (httpMethod.equals(HttpMethod.GET)) {
@@ -44,6 +51,35 @@ public class RequestHandler implements Runnable {
 
                 if (endPoint.equals("/user/create")) {
                     QueryParams queryParams = QueryParams.of(url);
+                    User user = QueryParamMapper.toUser(queryParams);
+
+                    DataBase.addUser(user);
+
+                    byte[] body = "성공했습니다.".getBytes();
+                    response200Header(dos, body.length);
+                    responseBody(dos, body);
+                    return;
+                }
+
+                String templateUrl = TemplateUrlBuilder.build(url);
+                ContentType contentType = ContentTypeParser.parse(templateUrl);
+
+                byte[] body = FileIoUtils.loadFileFromClasspath(templateUrl);
+
+                response200Header(dos, body.length, contentType.getValue());
+                responseBody(dos, body);
+
+                return;
+            }
+
+            if (httpMethod.equals(HttpMethod.POST)) {
+                String requestbody = IOUtils.readData(bufferedReader, httpHeader.getContentLength());
+                logger.debug("parse body : {} ,", requestbody);
+
+                DataOutputStream dos = new DataOutputStream(out);
+
+                if (endPoint.equals("/user/create")) {
+                    QueryParams queryParams = QueryParams.of(requestbody);
                     User user = QueryParamMapper.toUser(queryParams);
 
                     DataBase.addUser(user);

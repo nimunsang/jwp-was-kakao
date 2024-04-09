@@ -5,7 +5,14 @@ import java.util.Objects;
 
 public enum ContentType {
     TEXT_CSS("text/css"),
-    TEXT_HTML("text/html");
+    TEXT_HTML("text/html"),
+    ICO("image/vnd.microsoft.icon"),
+    JS("text/javascript"),
+    EOT("application/vnd.ms-fontobject"),
+    SVG("image/svg+xml"),
+    TTF("font/ttf"),
+    WOFF("font/woff"),
+    WOFF2("font/woff2");
 
     private final String value;
 
