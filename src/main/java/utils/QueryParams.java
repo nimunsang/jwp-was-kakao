@@ -10,7 +10,7 @@ public class QueryParams {
     }
 
     public static QueryParams of(String url) {
-        Map<String, String> data = QueryStringParser.parse(url);
+        Map<String, String> data = QueryStringParser.parseToMap(url);
         return new QueryParams(data);
     }
 

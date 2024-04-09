@@ -6,12 +6,7 @@ import java.util.stream.Collectors;
 
 public class QueryStringParser {
 
-    public static Map<String, String> parse(String url) {
-        String[] queryString = url.split("\\?");
-        return parseStringToMap(queryString[1]);
-    }
-
-    private static Map<String, String> parseStringToMap(String queryString) {
+    public static Map<String, String> parseToMap(String queryString) {
         String[] data = queryString.split("&");
         return Arrays.stream(data)
                 .map(it -> it.split("="))

@@ -47,8 +47,8 @@ class RequestHandlerTest {
         String header = "GET /user/create?userId=cu&password=password&name=%EC%9D%B4%EB%8F%99%EA%B7%9C&email=brainbackdoor%40gmail.com HTTP/1.1\n";
 
         String url = HttpHeaderUtils.parseUrl(header);
-
-        Map<String, String> data = QueryStringParser.parse(url);
+        String queryString = UrlParser.parseToQueryString(url);
+        Map<String, String> data = QueryStringParser.parseToMap(queryString);
 
         QueryParams queryParams = new QueryParams(data);
 
@@ -64,7 +64,8 @@ class RequestHandlerTest {
         String header = "GET /user/create?userId=cu&password=password&name=%EC%9D%B4%EB%8F%99%EA%B7%9C&email=brainbackdoor%40gmail.com HTTP/1.1\n";
 
         String url = HttpHeaderUtils.parseUrl(header);
-        Map<String, String> data = QueryStringParser.parse(url);
+        String queryString = UrlParser.parseToQueryString(url);
+        Map<String, String> data = QueryStringParser.parseToMap(queryString);
 
         QueryParams queryParams = new QueryParams(data);
 
