@@ -24,7 +24,6 @@ public class HttpRequestHandler {
 
         if (httpMethod.equals(HttpMethod.GET)) {
             String templateUrl = TemplateUrlBuilder.build(url);
-            System.out.println(templateUrl);
             ContentType contentType = ContentTypeParser.parse(templateUrl);
 
             body = FileIoUtils.loadFileFromClasspath(templateUrl);
@@ -48,14 +47,11 @@ public class HttpRequestHandler {
 
                 DataBase.addUser(user);
 
-                body = "성공했습니다.".getBytes();
-
                 header.put("location", "http://localhost:8080/index.html");
 
                 return HttpResponseBuilder.builder()
                         .httpVersion(HttpVersion.HTTP_1_1)
                         .httpStatus(HttpStatus.FOUND)
-                        .body(body)
                         .header(header)
                         .build();
             }
