@@ -24,6 +24,9 @@ public class HttpRequestHandler {
         byte[] body;
 
         if (httpMethod.equals(HttpMethod.GET)) {
+            if (endPoint.equals("/") || endPoint.isEmpty()) {
+                return redirect("/index.html");
+            }
             String templateUrl = TemplateUrlBuilder.build(url);
             ContentType contentType = ContentTypeParser.parse(templateUrl);
 
@@ -48,13 +51,7 @@ public class HttpRequestHandler {
 
                 DataBase.addUser(user);
 
-                header.put("location", "http://localhost:8080/index.html");
-
-                return HttpResponseBuilder.builder()
-                        .httpVersion(HttpVersion.HTTP_1_1)
-                        .httpStatus(HttpStatus.FOUND)
-                        .header(header)
-                        .build();
+                return redirect("/index.html");
             }
         }
 
@@ -63,6 +60,14 @@ public class HttpRequestHandler {
                 .httpStatus(HttpStatus.NOT_FOUND)
                 .build();
     }
+
+    private HttpResponse redirect(String to) {
+        Header header = new Header();
+        header.put("location", "http://localhost:8080" + to);
+        return HttpResponseBuilder.builder()
+                .httpVersion(HttpVersion.HTTP_1_1)
+                .httpStatus(HttpStatus.FOUND)
+                .header(header)
+                .build();
+    }
 }
-
-
