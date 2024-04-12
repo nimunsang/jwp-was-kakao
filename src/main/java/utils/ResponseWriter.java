@@ -1,9 +1,6 @@
 package utils;
 
-import http.Header;
-import http.HttpResponse;
-import http.HttpStatus;
-import http.HttpVersion;
+import http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +34,9 @@ public class ResponseWriter {
     }
 
     private void responseBody() {
-        byte[] body = httpResponse.getBody();
+        Body body = httpResponse.getBody();
         try {
-            dos.write(body, 0, body.length);
+            dos.write(body.getBodyAsBytes(), 0, body.getLength());
             dos.flush();
         } catch (IOException e) {
             logger.error(e.getMessage());

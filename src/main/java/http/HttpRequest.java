@@ -3,9 +3,9 @@ package http;
 public class HttpRequest {
     private RequestStartLine requestStartLine;
     private Header header;
-    private String body;
+    private Body body;
 
-    public HttpRequest(RequestStartLine requestStartLine, Header header, String body) {
+    public HttpRequest(RequestStartLine requestStartLine, Header header, Body body) {
         this.requestStartLine = requestStartLine;
         this.header = header;
         this.body = body;
@@ -27,7 +27,7 @@ public class HttpRequest {
         return header.getContentLength();
     }
 
-    public String getBody() {
+    public Body getBody() {
         return body;
     }
 }

@@ -5,9 +5,9 @@ public class HttpResponse {
 
     private Header header;
 
-    private byte[] body;
+    private Body body;
 
-    public HttpResponse(ResponseStartLine startLine, Header header, byte[] body) {
+    public HttpResponse(ResponseStartLine startLine, Header header, Body body) {
         this.startLine = startLine;
         this.header = header;
         this.body = body;
@@ -21,7 +21,7 @@ public class HttpResponse {
         return header;
     }
 
-    public byte[] getBody() {
+    public Body getBody() {
         return body;
     }
 }

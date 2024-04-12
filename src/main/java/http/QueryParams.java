@@ -16,6 +16,10 @@ public class QueryParams {
         return new QueryParams(data);
     }
 
+    public static QueryParams of(Body body) {
+        return of(body.getBodyAsString());
+    }
+
     public String get(String key) {
         return map.get(key);
     }

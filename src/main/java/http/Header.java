@@ -7,9 +7,6 @@ import java.util.Set;
 public class Header {
     private final Map<String, String> map = new HashMap<>();
 
-    public Header() {
-    }
-
     public void put(String key, String value) {
         map.put(key, value);
     }

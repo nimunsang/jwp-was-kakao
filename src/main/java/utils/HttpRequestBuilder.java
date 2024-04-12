@@ -1,9 +1,6 @@
 package utils;
 
-import http.Header;
-import http.HttpMethod;
-import http.HttpRequest;
-import http.RequestStartLine;
+import http.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,16 +10,16 @@ public class HttpRequestBuilder {
     private final BufferedReader bufferedReader;
     private RequestStartLine requestStartLine;
     private Header header;
-    private String body;
+    private Body body;
 
     public HttpRequestBuilder(BufferedReader bufferedReader) {
         this.bufferedReader = bufferedReader;
     }
 
     public HttpRequest build() throws IOException {
-        requestStartLine = buildStartLine();
-        header = buildHeader();
-        body = buildBody();
+        this.requestStartLine = buildStartLine();
+        this.header = buildHeader();
+        this.body = buildBody();
         return new HttpRequest(requestStartLine, header, body);
     }
 
@@ -47,11 +44,12 @@ public class HttpRequestBuilder {
         return header;
     }
 
-    private String buildBody() throws IOException {
+    private Body buildBody() throws IOException {
         if (requestStartLine.getHttpMethod().equals(HttpMethod.GET)) {
             return null;
         }
 
-        return IOUtils.readData(bufferedReader, header.getContentLength());
+        String data = IOUtils.readData(bufferedReader, header.getContentLength());
+        return new Body(data);
     }
 }

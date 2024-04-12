@@ -6,9 +6,9 @@ public class HttpResponseBuilder {
 
     private ResponseStartLine startLine;
     private Header header;
-    private byte[] body;
+    private Body body;
 
-    private HttpResponseBuilder(ResponseStartLine startLine, Header header, byte[] body) {
+    private HttpResponseBuilder(ResponseStartLine startLine, Header header, Body body) {
         this.startLine = startLine;
         this.header = header;
         this.body = body;
@@ -22,7 +22,7 @@ public class HttpResponseBuilder {
         private HttpVersion httpVersion;
         private HttpStatus httpStatus;
         private Header header;
-        private byte[] body;
+        private Body body;
 
         private Builder() {
         }
@@ -42,7 +42,7 @@ public class HttpResponseBuilder {
             return this;
         }
 
-        public Builder body(byte[] body) {
+        public Builder body(Body body) {
             this.body = body;
             return this;
         }

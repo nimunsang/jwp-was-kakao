@@ -20,7 +20,7 @@ public class HttpRequestHandler {
         String endPoint = httpRequest.getEndPoint();
         String url = httpRequest.getUrl();
         Header header = new Header();
-        byte[] body;
+        Body body;
 
         if (httpMethod.equals(HttpMethod.GET)) {
             if (endPoint.equals("/") || endPoint.isEmpty()) {
@@ -29,9 +29,10 @@ public class HttpRequestHandler {
             String templateUrl = TemplateUrlBuilder.build(url);
             ContentType contentType = ContentTypeParser.parse(templateUrl);
 
-            body = FileIoUtils.loadFileFromClasspath(templateUrl);
+            byte[] byteBody = FileIoUtils.loadFileFromClasspath(templateUrl);
+            body = new Body(byteBody);
 
-            header.put("Content-Length", String.valueOf(body.length));
+            header.put("Content-Length", String.valueOf(body.getLength()));
             header.put("Content-Type", contentType.getValue() + ";charset=utf-8");
 
             return HttpResponseBuilder.builder()
@@ -43,9 +44,9 @@ public class HttpRequestHandler {
         }
 
         if (httpMethod.equals(HttpMethod.POST)) {
-            String requestbody = httpRequest.getBody();
+            Body requestBody = httpRequest.getBody();
             if (endPoint.equals("/user/create")) {
-                QueryParams queryParams = QueryParams.of(requestbody);
+                QueryParams queryParams = QueryParams.of(requestBody);
                 User user = QueryParamMapper.toUser(queryParams);
 
                 DataBase.addUser(user);
