@@ -14,8 +14,8 @@ import java.io.IOException;
 public class ResponseWriter {
 
     private static final Logger logger = LoggerFactory.getLogger(ResponseWriter.class);
-
     private static final String CRLF = "\r\n";
+
     private final HttpResponse httpResponse;
     private final DataOutputStream dos;
 
