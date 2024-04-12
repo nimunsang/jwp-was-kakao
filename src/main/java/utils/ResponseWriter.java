@@ -32,19 +32,13 @@ public class ResponseWriter {
     private void responseHeader() throws IOException {
         String startLine = writeStartLine();
         String header = writeHeader();
-
-        System.out.println(startLine);
-        System.out.println(header);
-
         dos.writeBytes(startLine);
         dos.writeBytes(header);
     }
 
     private void responseBody() {
         byte[] body = httpResponse.getBody();
-//        System.out.println(Arrays.toString(body));
-
-            try {
+        try {
             dos.write(body, 0, body.length);
             dos.flush();
         } catch (IOException e) {
