@@ -4,11 +4,13 @@ import http.HttpMethod;
 import http.QueryParams;
 import model.User;
 import org.junit.jupiter.api.Test;
-import utils.*;
+import utils.FileIoUtils;
+import utils.HttpHeaderUtils;
+import utils.QueryParamMapper;
+import utils.UrlParser;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,9 +52,7 @@ class RequestHandlerTest {
 
         String url = HttpHeaderUtils.parseUrl(header);
         String queryString = UrlParser.parseToQueryString(url);
-        Map<String, String> data = QueryStringParser.parseToMap(queryString);
-
-        QueryParams queryParams = new QueryParams(data);
+        QueryParams queryParams = QueryParams.of(queryString);
 
         assertThat(queryParams.get("userId")).isEqualTo("cu");
         assertThat(queryParams.get("password")).isEqualTo("password");
@@ -67,9 +67,7 @@ class RequestHandlerTest {
 
         String url = HttpHeaderUtils.parseUrl(header);
         String queryString = UrlParser.parseToQueryString(url);
-        Map<String, String> data = QueryStringParser.parseToMap(queryString);
-
-        QueryParams queryParams = new QueryParams(data);
+        QueryParams queryParams = QueryParams.of(queryString);
 
         User user = QueryParamMapper.toUser(queryParams);
 
