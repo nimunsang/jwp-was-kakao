@@ -1,10 +1,11 @@
 package http;
 
+import utils.HttpResponseBuilder;
+
 public class HttpResponse {
+
     private ResponseStartLine startLine;
-
     private Header header;
-
     private Body body;
 
     public HttpResponse(ResponseStartLine startLine, Header header, Body body) {
@@ -23,5 +24,12 @@ public class HttpResponse {
 
     public Body getBody() {
         return body;
+    }
+
+    public static HttpResponse notFound() {
+        return HttpResponseBuilder.builder()
+                .httpVersion(HttpVersion.HTTP_1_1)
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .build();
     }
 }
