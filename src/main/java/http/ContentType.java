@@ -4,20 +4,24 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum ContentType {
-    TEXT_CSS("text/css"),
-    TEXT_HTML("text/html"),
-    ICO("image/vnd.microsoft.icon"),
-    JS("text/javascript"),
-    EOT("application/vnd.ms-fontobject"),
-    SVG("image/svg+xml"),
-    TTF("font/ttf"),
-    WOFF("font/woff"),
-    WOFF2("font/woff2");
+    TEXT_CSS("text/css", ".css", "./static"),
+    TEXT_HTML("text/html", ".html", "./templates"),
+    ICO("image/vnd.microsoft.icon", ".ico", "./templates"),
+    JS("text/javascript", ".js", "./static"),
+    EOT("application/vnd.ms-fontobject", ".eot", "./static"),
+    SVG("image/svg+xml", ".svg", "./static"),
+    TTF("font/ttf", ".ttf", "./static"),
+    WOFF("font/woff", ".woff", "./static"),
+    WOFF2("font/woff2", ".woff2", "./static"),;
 
     private final String value;
+    private final String extension;
+    private final String templatePath;
 
-    ContentType(String value) {
+    ContentType(String value, String extension, String templatePath) {
         this.value = value;
+        this.extension = extension;
+        this.templatePath = templatePath;
     }
 
     public static ContentType of(String contentTypeString) {
@@ -28,6 +32,17 @@ public enum ContentType {
     }
 
     public String getValue() {
+        if (this == TEXT_HTML) {
+            return value + ";charset=utf-8";
+        }
         return value;
+    }
+
+    public String getTemplatePath() {
+        return templatePath;
+    }
+
+    public String getExtension() {
+        return extension;
     }
 }
