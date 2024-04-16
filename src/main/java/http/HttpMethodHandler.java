@@ -3,6 +3,7 @@ package http;
 import db.DataBase;
 import http.redirect.RedirectionHandler;
 import http.redirect.RedirectionMap;
+import http.redirect.Redirector;
 import model.User;
 import utils.*;
 
@@ -35,13 +36,25 @@ public class HttpMethodHandler {
 
     public static HttpResponse doPost(HttpRequest httpRequest) {
         Body requestBody = httpRequest.getBody();
-        if (httpRequest.getEndPoint().equals("/user/create")) {
+        String endPoint = httpRequest.getEndPoint();
+        if (endPoint.equals("/user/create")) {
             QueryParams queryParams = QueryParams.of(requestBody);
             User user = QueryParamMapper.toUser(queryParams);
 
             DataBase.addUser(user);
 
             return RedirectionHandler.handle(httpRequest);
+        }
+
+        if (endPoint.equals("/user/login")) {
+            QueryParams queryParams = QueryParams.of(requestBody);
+            User user = QueryParamMapper.toUser(queryParams);
+
+            if (DataBase.findUserById(user.getUserId()).isPresent()) {
+                return RedirectionHandler.handle(httpRequest);
+            }
+
+            return Redirector.makeHttpResponse("/user/login_failed.html");
         }
 
         return HttpResponse.notFound();

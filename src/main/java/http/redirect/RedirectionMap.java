@@ -12,6 +12,7 @@ public class RedirectionMap {
         map.put("/", INDEX_HTML);
         map.put("", INDEX_HTML);
         map.put("/user/create", INDEX_HTML);
+        map.put("/user/login", INDEX_HTML);
     }
 
     public static String get(String key) {
