@@ -37,7 +37,7 @@ public class HttpResponseBuilder {
             return this;
         }
 
-        public Builder header(ResponseHeader responseHeader) {
+        public Builder responseHeader(ResponseHeader responseHeader) {
             this.responseHeader = responseHeader;
             return this;
         }

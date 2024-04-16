@@ -30,7 +30,7 @@ public class HttpMethodHandler {
                 .httpVersion(HttpVersion.HTTP_1_1)
                 .httpStatus(HttpStatus.OK)
                 .body(body)
-                .header(responseHeader)
+                .responseHeader(responseHeader)
                 .build();
     }
 

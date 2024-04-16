@@ -11,7 +11,7 @@ public class Redirector {
         return HttpResponseBuilder.builder()
                 .httpVersion(HttpVersion.HTTP_1_1)
                 .httpStatus(HttpStatus.FOUND)
-                .header(responseHeader)
+                .responseHeader(responseHeader)
                 .build();
     }
 }
