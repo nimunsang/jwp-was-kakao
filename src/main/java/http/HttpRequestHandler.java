@@ -15,15 +15,23 @@ public class HttpRequestHandler {
 
     public HttpResponse handle() throws IOException, URISyntaxException {
         HttpMethod httpMethod = httpRequest.getHttpMethod();
+        HttpResponse httpResponse;
 
         if (httpMethod.equals(HttpMethod.GET)) {
-            return HttpMethodHandler.doGet(httpRequest);
+            httpResponse = HttpMethodHandler.doGet(httpRequest);
+            if (!httpRequest.hasJsessionId()) {
+                httpResponse.setCookie();
+            }
+            return httpResponse;
         }
 
         if (httpMethod.equals(HttpMethod.POST)) {
-            return HttpMethodHandler.doPost(httpRequest);
+            httpResponse = HttpMethodHandler.doPost(httpRequest);
+            if (!httpRequest.hasJsessionId()) {
+                httpResponse.setCookie();
+            }
+            return httpResponse;
         }
-
         return HttpResponse.notFound();
     }
 }

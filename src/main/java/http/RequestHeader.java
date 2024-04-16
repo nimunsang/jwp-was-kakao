@@ -5,7 +5,9 @@ import java.util.Map;
 
 public class RequestHeader {
 
-    public static final String CONTENT_LENGTH = "Content-Length";
+    private static final String CONTENT_LENGTH = "Content-Length";
+    private static final String COOKIE = "Cookie";
+    public static final String JSESSIONID = "JSESSIONID";
 
     private final Map<String, String> map = new HashMap<>();
 
@@ -19,5 +21,12 @@ public class RequestHeader {
 
     public int getContentLength() {
         return Integer.parseInt(map.get(CONTENT_LENGTH));
+    }
+
+    public boolean hasJsessionId() {
+        if (map.containsKey(COOKIE)) {
+            return map.get(COOKIE).contains(JSESSIONID);
+        }
+        return false;
     }
 }

@@ -26,4 +26,8 @@ public class HttpRequest {
     public Body getBody() {
         return body;
     }
+
+    public boolean hasJsessionId() {
+        return requestHeader.hasJsessionId();
+    }
 }

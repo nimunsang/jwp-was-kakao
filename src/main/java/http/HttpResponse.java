@@ -32,4 +32,8 @@ public class HttpResponse {
                 .httpStatus(HttpStatus.NOT_FOUND)
                 .build();
     }
+
+    public void setCookie() {
+        responseHeader.setCookie();
+    }
 }

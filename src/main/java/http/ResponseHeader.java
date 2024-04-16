@@ -43,7 +43,9 @@ public class ResponseHeader {
         map.put(CONTENT_LENGTH, String.valueOf(length));
     }
 
-    public void setCookie(HttpCookie cookie) {
+    public void setCookie() {
+        HttpCookie cookie = new HttpCookie("");
+        cookie.setCookie();
         map.put(SET_COOKIE, cookie.toString());
     }
 }
