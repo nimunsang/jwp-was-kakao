@@ -17,9 +17,9 @@
 - [X] Query String 파싱
 - [X] POST 방식으로 회원가입
 - [X] Redirect
-- [ ] “로그인” 메뉴를 클릭하면 `http://localhost:8080/user/login.html` 으로 이동한다.
-- [ ] 회원가입한 사용자로 로그인할 수 있다.
-  - [ ] 로그인이 성공하면 `index.html`로 이동한다.
-  - [ ] 로그인이 실패하면 `/user/login_failed.html`로 이동한다.
-- [ ] 세션 아이디를 전달하는 이름으로 `JSESSIONID`를 사용한다. 
-- [ ] 서버에서 HTTP 응답을 전달할 때 응답 헤더에 `Set-Cookie`를 추가하고 `JSESSIONID=656cef62-e3c4-40bc-a8df-94732920ed46` 형태로 값을 전달하면 클라이언트 요청 헤더의 `Cookie` 필드에 값이 추가된다.
+- [X] “로그인” 메뉴를 클릭하면 `http://localhost:8080/user/login.html` 으로 이동한다.
+- [X] 회원가입한 사용자로 로그인할 수 있다.
+  - [X] 로그인이 성공하면 `index.html`로 이동한다.
+  - [X] 로그인이 실패하면 `/user/login_failed.html`로 이동한다.
+- [X] 세션 아이디를 전달하는 이름으로 `JSESSIONID`를 사용한다. 
+- [X] 서버에서 HTTP 응답을 전달할 때 응답 헤더에 `Set-Cookie`를 추가하고 `JSESSIONID=656cef62-e3c4-40bc-a8df-94732920ed46` 형태로 값을 전달하면 클라이언트 요청 헤더의 `Cookie` 필드에 값이 추가된다.
