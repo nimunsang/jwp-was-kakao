@@ -5,12 +5,12 @@ import utils.HttpResponseBuilder;
 public class HttpResponse {
 
     private ResponseStartLine startLine;
-    private Header header;
+    private ResponseHeader responseHeader;
     private Body body;
 
-    public HttpResponse(ResponseStartLine startLine, Header header, Body body) {
+    public HttpResponse(ResponseStartLine startLine, ResponseHeader responseHeader, Body body) {
         this.startLine = startLine;
-        this.header = header;
+        this.responseHeader = responseHeader;
         this.body = body;
     }
 
@@ -18,8 +18,8 @@ public class HttpResponse {
         return startLine;
     }
 
-    public Header getHeader() {
-        return header;
+    public ResponseHeader getHeader() {
+        return responseHeader;
     }
 
     public Body getBody() {

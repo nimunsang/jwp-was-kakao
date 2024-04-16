@@ -43,14 +43,14 @@ public class ResponseWriter {
         }
     }
 
-    private String writeHeader() throws IOException {
-        Header header = httpResponse.getHeader();
+    private String writeHeader() {
+        ResponseHeader responseHeader = httpResponse.getHeader();
 
         StringBuilder sb = new StringBuilder();
-        for (String key : header.getKeys()) {
+        for (String key : responseHeader.getKeys()) {
             sb.append(key)
                     .append(": ")
-                    .append(header.get(key))
+                    .append(responseHeader.get(key))
                     .append(CRLF);
         }
         sb.append(CRLF);

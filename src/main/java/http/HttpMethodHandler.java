@@ -22,15 +22,15 @@ public class HttpMethodHandler {
         Body body = new Body(byteBody);
 
         ContentType contentType = ContentTypeParser.parse(templateUrl);
-        Header header = new Header();
-        header.setContentType(contentType);
-        header.setContentLength(body.getLength());
+        ResponseHeader responseHeader = new ResponseHeader();
+        responseHeader.setContentType(contentType);
+        responseHeader.setContentLength(body.getLength());
 
         return HttpResponseBuilder.builder()
                 .httpVersion(HttpVersion.HTTP_1_1)
                 .httpStatus(HttpStatus.OK)
                 .body(body)
-                .header(header)
+                .header(responseHeader)
                 .build();
     }
 

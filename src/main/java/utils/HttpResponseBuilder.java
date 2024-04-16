@@ -5,12 +5,12 @@ import http.*;
 public class HttpResponseBuilder {
 
     private ResponseStartLine startLine;
-    private Header header;
+    private ResponseHeader responseHeader;
     private Body body;
 
-    private HttpResponseBuilder(ResponseStartLine startLine, Header header, Body body) {
+    private HttpResponseBuilder(ResponseStartLine startLine, ResponseHeader responseHeader, Body body) {
         this.startLine = startLine;
-        this.header = header;
+        this.responseHeader = responseHeader;
         this.body = body;
     }
 
@@ -21,7 +21,7 @@ public class HttpResponseBuilder {
     public static class Builder {
         private HttpVersion httpVersion;
         private HttpStatus httpStatus;
-        private Header header;
+        private ResponseHeader responseHeader;
         private Body body;
 
         private Builder() {
@@ -37,8 +37,8 @@ public class HttpResponseBuilder {
             return this;
         }
 
-        public Builder header(Header header) {
-            this.header = header;
+        public Builder header(ResponseHeader responseHeader) {
+            this.responseHeader = responseHeader;
             return this;
         }
 
@@ -49,7 +49,7 @@ public class HttpResponseBuilder {
 
         public HttpResponse build() {
             ResponseStartLine startLine = new ResponseStartLine(httpVersion, httpStatus);
-            return new HttpResponse(startLine, header, body);
+            return new HttpResponse(startLine, responseHeader, body);
         }
     }
 }
