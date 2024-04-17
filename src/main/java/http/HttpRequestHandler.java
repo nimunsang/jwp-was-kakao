@@ -1,37 +1,40 @@
 package http;
 
-import utils.HttpResponseBuilder;
+import http.cookie.HttpCookie;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 public class HttpRequestHandler {
 
     private final HttpRequest httpRequest;
+    private HttpResponse httpResponse;
 
     public HttpRequestHandler(HttpRequest httpRequest) {
         this.httpRequest = httpRequest;
+        this.httpResponse = new HttpResponse();
     }
 
     public HttpResponse handle() throws IOException, URISyntaxException {
         HttpMethod httpMethod = httpRequest.getHttpMethod();
-        HttpResponse httpResponse;
+
+        setJsessionId(httpRequest.getCookie());
 
         if (httpMethod.equals(HttpMethod.GET)) {
-            httpResponse = HttpMethodHandler.doGet(httpRequest);
-            if (!httpRequest.hasJsessionId()) {
-                httpResponse.setCookie();
-            }
-            return httpResponse;
+            httpResponse = HttpMethodHandler.doGet(httpRequest, httpResponse);
         }
 
         if (httpMethod.equals(HttpMethod.POST)) {
-            httpResponse = HttpMethodHandler.doPost(httpRequest);
-            if (!httpRequest.hasJsessionId()) {
-                httpResponse.setCookie();
-            }
-            return httpResponse;
+            httpResponse = HttpMethodHandler.doPost(httpRequest, httpResponse);
         }
-        return HttpResponse.notFound();
+        return httpResponse;
+    }
+
+    private void setJsessionId(HttpCookie cookie) {
+        if (!cookie.hasJsessionId()) {
+            cookie.setCookie("JSESSIONID", UUID.randomUUID().toString());
+        }
+        httpResponse.setCookie(cookie);
     }
 }
