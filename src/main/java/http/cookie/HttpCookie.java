@@ -2,7 +2,6 @@ package http.cookie;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class HttpCookie {
 
@@ -19,13 +18,16 @@ public class HttpCookie {
         return map.get(key);
     }
 
+    public void setCookie(String key, String value) {
+        map.put(key, value);
+    }
+
     public boolean hasJsessionId() {
         return map.containsKey(JSESSIONID);
     }
 
-    public void setCookie() {
-        String sessionId = UUID.randomUUID().toString();
-        map.put(JSESSIONID, sessionId);
+    public String getJsessionid() {
+        return map.get(JSESSIONID);
     }
 
     @Override

@@ -1,12 +1,18 @@
 package http;
 
-import utils.HttpResponseBuilder;
+import http.cookie.HttpCookie;
 
 public class HttpResponse {
 
     private ResponseStartLine startLine;
     private ResponseHeader responseHeader;
     private Body body;
+
+    public HttpResponse() {
+        this.startLine = new ResponseStartLine(HttpVersion.HTTP_1_1, HttpStatus.NOT_FOUND);
+        this.responseHeader = new ResponseHeader();
+        this.body = new Body("");
+    }
 
     public HttpResponse(ResponseStartLine startLine, ResponseHeader responseHeader, Body body) {
         this.startLine = startLine;
@@ -26,14 +32,12 @@ public class HttpResponse {
         return body;
     }
 
-    public static HttpResponse notFound() {
-        return HttpResponseBuilder.builder()
-                .httpVersion(HttpVersion.HTTP_1_1)
-                .httpStatus(HttpStatus.NOT_FOUND)
-                .build();
+    public HttpCookie getCookie() {
+        String cookieString = responseHeader.getCookieString();
+        return new HttpCookie(cookieString);
     }
 
-    public void setCookie() {
-        responseHeader.setCookie();
+    public void setCookie(HttpCookie cookie) {
+        responseHeader.setCookie(cookie);
     }
 }

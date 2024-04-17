@@ -1,5 +1,7 @@
 package http;
 
+import http.cookie.HttpCookie;
+
 public class HttpRequest {
     private RequestStartLine requestStartLine;
     private RequestHeader requestHeader;
@@ -27,7 +29,11 @@ public class HttpRequest {
         return body;
     }
 
-    public boolean hasJsessionId() {
-        return requestHeader.hasJsessionId();
+    public String getJsessionId() {
+        return requestHeader.getJsessionId();
+    }
+
+    public HttpCookie getCookie() {
+        return requestHeader.getCookie();
     }
 }

@@ -1,10 +1,12 @@
 package http.cookie;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CookieParser {
+
+    private CookieParser() {
+    }
 
     public static final int KEY_INDEX = 0;
     public static final int VALUE_INDEX = 1;
@@ -14,9 +16,12 @@ public class CookieParser {
             return Map.of();
         }
 
-        String[] cookieParts = cookieString.split("; ");
-        return Arrays.stream(cookieParts)
-                .map(part -> part.split("="))
-                .collect(Collectors.toMap(split -> split[KEY_INDEX], split -> split[VALUE_INDEX]));
+        Map<String, String> map = new HashMap<>();
+        for (String s : cookieString.split("; ")) {
+            String[] split = s.split("=");
+            map.put(split[KEY_INDEX], split[VALUE_INDEX]);
+        }
+
+        return map;
     }
 }

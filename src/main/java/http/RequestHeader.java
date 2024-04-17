@@ -1,14 +1,15 @@
 package http;
 
+import http.cookie.HttpCookie;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class RequestHeader {
 
+    public static final String JSESSIONID = "JSESSIONID";
     private static final String CONTENT_LENGTH = "Content-Length";
     private static final String COOKIE = "Cookie";
-    public static final String JSESSIONID = "JSESSIONID";
-
     private final Map<String, String> map = new HashMap<>();
 
     public void put(String key, String value) {
@@ -23,10 +24,19 @@ public class RequestHeader {
         return Integer.parseInt(map.get(CONTENT_LENGTH));
     }
 
-    public boolean hasJsessionId() {
+    public String getJsessionId() {
         if (map.containsKey(COOKIE)) {
-            return map.get(COOKIE).contains(JSESSIONID);
+            String[] cookies = map.get(COOKIE).split("; ");
+            for (String cookie : cookies) {
+                if (cookie.contains(JSESSIONID)) {
+                    return cookie.split("=")[1];
+                }
+            }
         }
-        return false;
+        return null;
+    }
+
+    public HttpCookie getCookie() {
+        return new HttpCookie(map.get(COOKIE));
     }
 }
